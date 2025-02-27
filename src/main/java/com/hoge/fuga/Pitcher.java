@@ -1,35 +1,36 @@
 package com.hoge.fuga;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
+// 投手クラス - Playerを継承
 public class Pitcher extends Player {
-    private Map<String, Integer> pitchSkills;
-    private int strikeOutRate;
-
-    public Pitcher(String name, int strikeOutRate) {
-        super(name, "Pitcher");
-        this.strikeOutRate = strikeOutRate;
-        this.pitchSkills = new HashMap<>();
+    private double outRate;  // アウト率
+    
+    public Pitcher(String name, double outRate) {
+        super(name, "投手");
+        this.outRate = outRate;
     }
-
-    public void addPitchSkill(String pitchType, int accuracy) {
-        pitchSkills.put(pitchType, accuracy);
+    
+    public double getOutRate() {
+        return outRate;
     }
-
-    public String pitch() {
-        Object[] pitches = pitchSkills.keySet().toArray();
-        String pitchType = (String) pitches[(int) (Math.random() * pitches.length)];
-        System.out.println(getName() + " throws a " + pitchType + "!");
-        return pitchType;
-    }
-
-    public int getPitchAccuracy(String pitchType) {
-        return pitchSkills.getOrDefault(pitchType, 0);
-    }
-
+    
     @Override
-    public void play() {
-        System.out.println(getName() + " is pitching.");
+    public void displayInfo() {
+        System.out.println(name + " (" + position + ") - アウト率: " + String.format("%.3f", outRate));
+    }
+    
+    // 投手としてのプレイ - 投球が主体
+    @Override
+    public PlayResult play() {
+        System.out.println(name + "が投球を行います。");
+        Random random = new Random();
+        
+        // アウト率に基づく結果判定
+        if (random.nextDouble() < outRate) {
+            return PlayResult.OUT;
+        } else {
+            return PlayResult.NO_OUT;
+        }
     }
 }

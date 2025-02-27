@@ -1,21 +1,25 @@
 package com.hoge.fuga;
 
 public abstract class Player {
-    private String name;
-    private String position;
-
-    public Player(String name, String position) {
-        this.name = name;
-        this.position = position;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public abstract void play();
+ protected String name;
+ protected String position;
+ 
+ public Player(String name, String position) {
+     this.name = name;
+     this.position = position;
+ }
+ 
+ public String getName() {
+     return name;
+ }
+ 
+ public String getPosition() {
+     return position;
+ }
+ 
+ // 選手情報の表示（各サブクラスでオーバーライド）
+ public abstract void displayInfo();
+ 
+ // 核となるプレイメソッド - ポリモーフィズムの中心
+ public abstract PlayResult play();
 }
